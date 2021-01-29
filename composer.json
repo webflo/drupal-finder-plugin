@@ -1,6 +1,7 @@
 {
     "name": "webflo/drupal-finder-plugin",
     "type": "composer-plugin",
+    "license": "GPL-2.0-or-later",
     "require": {
         "composer-plugin-api": "^1.1.0 || ^2.0"
     },
