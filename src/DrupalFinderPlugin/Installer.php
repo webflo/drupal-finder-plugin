@@ -102,8 +102,9 @@ PHP;
     $versions = iterator_to_array(self::getVersions($composer->getLocker(), $rootPackage));
 
     if (! array_key_exists('webflo/drupal-finder-plugin', $versions)) {
-      // plugin must be globally installed - we only want to generate info for projects which specifically
-      // require webflo/drupal-finder-plugin
+      // plugin is installed globally. project-local is required. we only want
+      // to generate info for projects which specifically require
+      // webflo/drupal-finder-plugin
       return;
     }
 
