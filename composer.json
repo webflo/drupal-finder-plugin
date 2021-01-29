@@ -1,0 +1,22 @@
+{
+    "name": "webflo/drupal-finder-plugin",
+    "type": "composer-plugin",
+    "require": {
+        "composer-plugin-api": "^1.1.0 || ^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DrupalFinderPlugin\\": "src/DrupalFinderPlugin"
+        }
+    },
+    "extra": {
+        "class": "DrupalFinderPlugin\\Installer",
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "scripts": {
+        "post-update-cmd":  "DrupalFinderPlugin\\Installer::dumpInfoClass",
+        "post-install-cmd": "DrupalFinderPlugin\\Installer::dumpInfoClass"
+    }
+}
