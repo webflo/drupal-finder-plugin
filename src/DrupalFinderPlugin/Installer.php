@@ -47,6 +47,15 @@ namespace DrupalFinderPlugin;
     const METADATA = %s;
 
     /**
+      * Location of composer.json file.
+      *
+      * @return string
+      */
+    public static function getComposerRoot() {
+      return self::METADATA['composerRoot'];
+    }
+
+    /**
       * vendor-dir, relative to DRUPAL_ROOT.
       *
       * @return string
