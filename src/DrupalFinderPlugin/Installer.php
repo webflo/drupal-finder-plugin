@@ -47,6 +47,24 @@ namespace DrupalFinderPlugin;
     const METADATA = %s;
 
     /**
+      * composer.json, relative to DRUPAL_ROOT.
+      *
+      * @return string
+      */
+    public static function getComposerJson() {
+      return self::METADATA['composerJson'];
+    }
+
+    /**
+      * composer-root, relative to DRUPAL_ROOT.
+      *
+      * @return string
+      */
+    public static function getComposerRoot() {
+      return self::METADATA['composerRoot'];
+    }
+
+    /**
       * vendor-dir, relative to DRUPAL_ROOT.
       *
       * @return string
@@ -108,7 +126,6 @@ PHP;
       return;
     }
 
-    $metadata['composerRoot'] = getcwd();
     $vendorDir = $composer->getConfig()->get('vendor-dir');
     $vendorBinDir = $composer->getConfig()->get('bin-dir');
 
@@ -141,9 +158,15 @@ PHP;
     $fs = new Filesystem();
 
     $metadata = [
+      'composerJson' => NULL,
+      'composerRoot' => $fs->findShortestPath($drupalRoot, getcwd(), TRUE),
       'vendorDir' => $fs->findShortestPath($drupalRoot, $vendorDir, TRUE),
       'vendorBinDir' => $fs->findShortestPath($drupalRoot, $vendorBinDir, TRUE),
     ];
+
+    if ($composer->getConfig()->getConfigSource() instanceof Config\JsonConfigSource) {
+      $metadata['composerJson'] = $fs->findShortestPath($drupalRoot, $composer->getConfig()->getConfigSource()->getName(), TRUE);
+    }
 
     $infoClass = self::generateInfoClass($rootPackage->getName(), $metadata);
 
